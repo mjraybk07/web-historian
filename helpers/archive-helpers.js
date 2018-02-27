@@ -30,7 +30,8 @@ exports.readListOfUrls = function(callback) {
     if ( err ) {
       throw err;
     }
-    console.log('readListOfUrls data...', data);
+    data = data.toString().split('\n');
+    //console.log('readListOfUrls data...', data);
     // convert data to an array of urls
 
     callback(data);
@@ -39,6 +40,11 @@ exports.readListOfUrls = function(callback) {
 };
 
 exports.isUrlInList = function(url, callback) {
+  // call readListOfUrls (to look at its array of urls)
+  // check if our url is in the list (do a comparison)
+  exports.readListOfUrls(function (data) {
+      callback( data.includes(url) );
+  })
 };
 
 exports.addUrlToList = function(url, callback) {

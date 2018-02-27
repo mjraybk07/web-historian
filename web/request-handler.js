@@ -8,9 +8,11 @@ var urlParser = require('url')
 exports.handleRequest = function (req, res) {
   console.log('handleRequest ......');
 
+  var parts = urlParser.parse(req.url);
   var pathname = urlParser.parse(req.url).pathname;
 
-  console.log(' handler request url: ', req.url);
+  //console.log('handleRequest PARTS:', parts)
+  //console.log('handler request url: ', req.url);
 
   if ( req.method === 'GET' ) {
 
@@ -53,7 +55,7 @@ exports.handleRequest = function (req, res) {
     // else
     //  add it to our list
     if ( pathname === '/' ) {
-    console.log('head... ', req.headers);
+    //console.log('head... ', req.headers);
 
 
 
