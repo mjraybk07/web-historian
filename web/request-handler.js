@@ -56,7 +56,22 @@ exports.handleRequest = function (req, res) {
     //  add it to our list
     if ( pathname === '/' ) {
     //console.log('head... ', req.headers);
+      var data = [];
+      req.on('data', function(chunk) {
+        data.push(chunk);
+         // console.log("Body chunk: ", JSON.parse(chunk.toString()) );
+      });
 
+      req.on('end', () => {
+        data = Buffer.concat(data).toString().split('=')[1];
+        //data = JSON.stringify({url: data});
+        console.log('HERE IS THE DATA', data);
+        archive.addUrlToList(data, () => {
+          res.writeHead(302, httpHelpers.headers);
+          res.end(data);
+        })
+
+      });
 
 
 
