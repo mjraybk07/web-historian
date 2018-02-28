@@ -67,4 +67,38 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
+  // loop through urls list
+  //   check if url is archived (isUrlArchived)
+  //     if it is not archived
+  //       add a new file (for that url) to the archive
+  urls.forEach( (url) => {
+    exports.isUrlArchived(url, function (boolean) {
+      if ( !boolean ) {
+        fs.writeFile(exports.paths.archivedSites + '/' + url, url, function (err) {
+          if (err) {
+            throw err
+          }
+          console.log(url, ' has been added to archive.')
+        })
+      }
+    })
+
+  });
+
+
+ /* exports.readListOfUrls( function (data) {
+    data.forEach( (url) => {
+      exports.isUrlArchived(url, function (boolean) {
+        if ( !boolean ) {
+          fs.writeFile(exports.paths.archivedSites + '/' + url, url, function (err) {
+            if (err) {
+              throw err
+            }
+            console.log(url + ' has been saved.')
+          })
+        }
+      })
+    })
+  })*/
+
 };
