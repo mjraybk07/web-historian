@@ -26,9 +26,15 @@ exports.handleRequest = function (req, res) {
         }
       });
 
-    } else {
+    } else {//localhost:3000/archive/sites/google.com
 
       fs.readFile(archive.paths.archivedSites + pathname, function (err, data) {
+        // if pathname exists
+        //  ...
+
+        // if path name doesnt exist
+        // sned 404
+
         if ( err ) {
           // throw err;
           res.writeHead(404, httpHelpers.headers);
